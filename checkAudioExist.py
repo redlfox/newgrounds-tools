@@ -8,9 +8,7 @@ import filetype
 # Check if audio files end with "(ID number) match audio id of Newgrounds audio artist page existing
 def main() -> None:
 	NGAudioArtistHtml = Path(rf"")
-	with open(
-	    NGAudioArtistHtml, "r", encoding=get_encoding(NGAudioArtistHtml)
-	) as f:
+	with open(NGAudioArtistHtml, "r", encoding=get_encoding(NGAudioArtistHtml)) as f:
 		try:
 			audioItemsFromFile = f.read()
 		except Exception as e:
@@ -21,20 +19,14 @@ def main() -> None:
 			return None
 	# print(audioItemsFromFile)
 	# print(type(audioItemsFromFile))
-	newgroundsAudioItems = list(
-	    re.findall(r"(?<=listen/)\d+", audioItemsFromFile)
-	)
+	newgroundsAudioItems = list(re.findall(r"(?<=listen/)\d+", audioItemsFromFile))
 	# newgroundsAudioItems=re.findall(r"(?<=data-audio-playback\=\")\d+", audioItemsFromFile)
 	print(
-	    "newgroundsAudioItems length:", len(newgroundsAudioItems),
-	    "newgroundsAudioItems type:", type(newgroundsAudioItems)
+	    "newgroundsAudioItems length:", len(newgroundsAudioItems), "newgroundsAudioItems type:",
+	    type(newgroundsAudioItems)
 	)
 	print("newgroundsAudioItems context:", newgroundsAudioItems)
-	audioFilesDownloadedList = [
-	    af
-	    for af in list(Path(rf'').glob('**/*.mp3'))
-	    if checkFileType(af, "mp3")
-	]
+	audioFilesDownloadedList = [af for af in list(Path(rf'').glob('**/*.mp3')) if checkFileType(af, "mp3")]
 	audioItemsNotDownloadedList = []
 	# print(audioFilesDownloadedList[0])
 	itemMatched = False
@@ -54,6 +46,6 @@ def main() -> None:
 			itemMatched = False
 			continue
 	print(audioItemsNotDownloadedList)
-	
+
 if __name__ == "__main__":
 	main()
