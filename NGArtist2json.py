@@ -79,6 +79,8 @@ def main() -> None:
 			NGAudioArtistHtmlFilelist = readFromFile(args.hl).splitlines()
 		except Exception as e:
 			sys.exit("Failed to read html file list, will exit.")
+	else:
+		parser.print_help()
 	if not NGAudioArtistHtmlFilelist:
 		sys.exit("No html to process, will exit.")
 	autoMoveHtml = False
@@ -87,6 +89,7 @@ def main() -> None:
 	if args.ad:
 		jsonDest = args.ad
 	else:
+		parser.print_help()
 		sys.exit("No json destination, will exit.")
 
 	for NGAudioArtistHtmlFile in NGAudioArtistHtmlFilelist:
