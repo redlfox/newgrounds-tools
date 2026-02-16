@@ -41,16 +41,6 @@ def compare_version(ver1, ver2):
 
 	return 0
 
-class accelerator:
-	def __call__(self, r):
-		domain_list = ['steamcommunity-a.akamaihd.net', ]
-		match = re.search(r'(https?://)([^/\s]+)', r.url)
-		if match:
-			domain = match.group(2)
-			r.headers['Host'] = domain
-			r.url = re.sub(r'(https?://)([^/\s]+)(.*)', r'\1' + random.choice(domain_list) + r'\3', r.url, )
-		return r
-
 def is_subsequence(s, t):
 	t_index = 0
 	s_index = 0

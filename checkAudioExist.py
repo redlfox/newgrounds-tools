@@ -10,7 +10,11 @@ def main() -> None:
 	parser = argparse.ArgumentParser(description="Tool to check if Newgrounds audio files extracted from a file contains their urls exist.")
 	parser.add_argument("-ef", default=None, help="Specifies the file to extract Newgrounds audio urls.")
 	parser.add_argument("-ad", default=None, help="Specifies the directory to match mp3 files.")
+	# parser.add_argument("-h","--help", action="store_true", help="Shows the help content.")
 	args = parser.parse_args()
+	# if args.h:
+	# 	parser.print_help()
+	# 	sys.exit()
 	if not args.ef or not args.ad:
 		parser.print_help()
 		sys.exit() 

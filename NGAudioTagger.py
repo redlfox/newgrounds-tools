@@ -285,7 +285,12 @@ def main() -> None:
 	parser.add_argument("-jl", "-json-file-list", default=None, help="Read Newgrounds JSON paths from the givien file.")
 	parser.add_argument("-a", "-alias-json", default=None, help="JSON file that storage artists' alias names.")
 	parser.add_argument("-ngapl", default=None, help="test.")
+	# parser.add_argument("-h","--help", action="store_true", help="Shows the help content.")
 	args = parser.parse_args()
+	badArgs = False
+	# if args.h:
+	# 	parser.print_help()
+	# 	sys.exit()
 	if args.f:
 		fuzzyMatch = True
 		print("Fuzzy match enabled.")
@@ -295,17 +300,24 @@ def main() -> None:
 		try:
 			NGAudioArtistHtmlFilelist = readFromFile(args.jl).splitlines()
 		except Exception as e:
-			print("Failed to load json file paths from ", args.jl)
-			sys.exit()
+			sys.exit("Failed to load json file paths from ", args.jl)
 	else:
-		parser.print_help()
-		sys.exit("Must give the -jl parameter.")
+		print("Must give the -jl parameter.")
+		badArgs = True
 	aliasJson = []
 	if args.a:
 		try:
 			aliasJson = orjson.loads(readFromFile(args.a))
 		except Exception as e:
 			print("Failed to load artist alias json from ", args.a)
+	if args.ngapl:
+		pass
+	else:
+		print("Must give the -ngapl parameter.")
+		badArgs = True
+	if badArgs:
+		parser.print_help()
+		sys.exit()
 
 	for countIndex, NGAudioArtistHtmlFileItem in enumerate(NGAudioArtistHtmlFilelist, start=1):
 		if Path(NGAudioArtistHtmlFileItem).is_file() is False:
@@ -352,3 +364,6 @@ def main() -> None:
 				filesFailedtoRename.append(fileFailedtoRename)
 
 	print("Files failed to edit tags: ", filesFailedtoEditTags, "\nFiles failed to rename: ", filesFailedtoRename)
+
+if __name__ == "__main__":
+	main()
