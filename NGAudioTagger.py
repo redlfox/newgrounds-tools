@@ -280,11 +280,32 @@ def NGAudioRenamer(mp3FilePath: Path, aliasesJson: list):
 def main() -> None:
 
 	# init()
-	parser = argparse.ArgumentParser(description="Tool to edit Newgrounds audio's tags.")
-	parser.add_argument("-f", "-fuzzy-match", action="store_true", help="Optional, test")
-	parser.add_argument("-jl", "-json-file-list", default=None, help="Read Newgrounds JSON paths from the givien file.")
-	parser.add_argument("-a", "-alias-json", default=None, help="JSON file that storage artists' alias names.")
-	parser.add_argument("-ngapl", default=None, help="test.")
+	example_text = '''example:
+    normal:
+    python3 %(prog)s -jl JSON_FILE_LIST -ngapl AUDIO_FILE_LIST
+    fuzzy:
+    python3 %(prog)s -f -jl JSON_FILE_LIST -ngapl AUDIO_FILE_LIST'''
+
+	parser = argparse.ArgumentParser(
+	    description="Tool to bulk edit Newgrounds audio's tags.", epilog=example_text,
+	    formatter_class=argparse.RawDescriptionHelpFormatter
+	)
+	parser.add_argument(
+	    "-f", "-fuzzy-match", action="store_true",
+	    help="Enable fuzzy match. Allow matching audio files using \"^(\d+)_.+\" pattern."
+	)
+	parser.add_argument(
+	    "-jl", "-json-list-file", metavar="JSON_FILE_LIST", default=None,
+	    help="Read Newgrounds json paths from the givien file."
+	)
+	parser.add_argument(
+	    "-a", "-alias-json", metavar="JSON_FILE", default=None,
+	    help="Specifie the json file that storage artists' alias names."
+	)
+	parser.add_argument(
+	    "-ngapl", metavar="AUDIO_FILE_LIST", default=None,
+	    help="Specifie the file stores audio file list to process. Items are separated with new line in the list"
+	)
 	# parser.add_argument("-h","--help", action="store_true", help="Shows the help content.")
 	args = parser.parse_args()
 	badArgs = False

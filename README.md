@@ -19,17 +19,26 @@ options:
 ```
 NGAudioTagger.py
 ```
-usage: NGAudioTagger.py [-h] [-f] [-jl JL] [-a A] [-ngapl NGAPL]
+usage: NGAudioTagger.py [-h] [-f] [-jl JSON_FILE_LIST] [-a JSON_FILE] [-ngapl AUDIO_FILE_LIST]
 
-Tool to edit Newgrounds audio's tags.
+Tool to bulk edit Newgrounds audio's tags.
 
 options:
   -h, --help            show this help message and exit
-  -f, -fuzzy-match      Optional, test
-  -jl, -json-file-list JL
-                        Read Newgrounds JSON paths from the givien file.
-  -a, -alias-json A     JSON file that storage artists' alias names.
-  -ngapl NGAPL          test.
+  -f, -fuzzy-match      Enable fuzzy match. Allow matching audio files using "^(\d+)_.+" pattern.
+  -jl, -json-list-file JSON_FILE_LIST
+                        Read Newgrounds json paths from the givien file.
+  -a, -alias-json JSON_FILE
+                        Specifie the json file that storage artists' alias names.
+  -ngapl AUDIO_FILE_LIST
+                        Specifie the file stores audio file list to process. Items are separated with new line in the
+                        list
+
+example:
+    normal:
+    python3 NGAudioTagger.py -jl JSON_FILE_LIST -ngapl AUDIO_FILE_LIST
+    fuzzy:
+    python3 NGAudioTagger.py -f -jl JSON_FILE_LIST -ngapl AUDIO_FILE_LIST
 ```
 checkAudioExist.py
 ```
