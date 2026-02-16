@@ -297,6 +297,9 @@ def main() -> None:
 		except Exception as e:
 			print("Failed to load json file paths from ", args.jl)
 			sys.exit()
+	else:
+		parser.print_help()
+		sys.exit("Must give the -jl parameter.")
 	aliasJson = []
 	if args.a:
 		try:
